@@ -11,7 +11,47 @@ workspace:
   run_scope_preference: single
   run_scope_history: []
 
-intents: []
+intents:
+  - id: core-fx-domain
+    title: Core FX Domain Layer
+    status: in_progress
+    work_items:
+      - id: project-scaffold
+        title: Project Scaffold
+        complexity: low
+        mode: autopilot
+        status: pending
+        depends_on: []
+      - id: fx-core-types
+        title: FX Core Value Objects
+        complexity: low
+        mode: autopilot
+        status: pending
+        depends_on: [project-scaffold]
+      - id: fx-market-calendar
+        title: FX Market Calendar
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on: [fx-core-types]
+      - id: fx-business-day-rules
+        title: Business Day Adjustment Rules
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on: [fx-market-calendar]
+      - id: fx-spot-value-dates
+        title: FX Spot and Value Date Generation
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on: [fx-business-day-rules]
+      - id: fx-conventions-table
+        title: FX Convention Registry
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on: [fx-spot-value-dates]
 
 runs:
   active: []
