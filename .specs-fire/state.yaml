@@ -53,6 +53,64 @@ intents:
         status: pending
         depends_on: [fx-spot-value-dates]
 
+  - id: docker-ci-setup
+    title: Dockerisation & CI GitHub
+    status: in_progress
+    work_items:
+      - id: dockerfile-backend
+        title: Dockerfile Backend Multi-Stage
+        complexity: low
+        mode: autopilot
+        status: pending
+        depends_on: [project-scaffold]
+      - id: docker-compose-dev
+        title: Docker Compose Dev Environment
+        complexity: low
+        mode: autopilot
+        status: pending
+        depends_on: [dockerfile-backend]
+      - id: github-actions-ci
+        title: GitHub Actions CI (lint + test)
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on: [dockerfile-backend]
+
+  - id: frontend-fx-reference
+    title: Frontend FX Conventions & Calendars
+    status: in_progress
+    work_items:
+      - id: frontend-scaffold
+        title: Frontend Scaffold (Vite + React + TypeScript + Tailwind)
+        complexity: low
+        mode: autopilot
+        status: pending
+        depends_on: [project-scaffold]
+      - id: api-fx-reference-data
+        title: API Backend — Endpoints Conventions & Calendriers
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on: [fx-conventions-table]
+      - id: frontend-conventions-page
+        title: Page Conventions FX
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on: [frontend-scaffold, api-fx-reference-data]
+      - id: frontend-calendar-page
+        title: Page Calendrier de Marché
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on: [frontend-scaffold, api-fx-reference-data]
+      - id: frontend-spot-calculator
+        title: Calculateur de Dates Spot/Value
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on: [frontend-conventions-page, frontend-calendar-page]
+
 runs:
   active: []
   completed: []
