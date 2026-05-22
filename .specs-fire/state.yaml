@@ -1,0 +1,18 @@
+project:
+  name: fx-pricing
+  description: Plateforme de pricing FX temps réel — calculs financiers, streaming market data, API REST+WebSocket, frontend dashboard
+  created: "2026-05-22T00:00:00Z"
+  fire_version: "0.1.8"
+
+workspace:
+  type: greenfield
+  structure: monolith
+  autonomy_bias: balanced
+  run_scope_preference: single
+  run_scope_history: []
+
+intents: []
+
+runs:
+  active: []
+  completed: []
