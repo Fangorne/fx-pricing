@@ -1,16 +1,15 @@
 project:
   name: fx-pricing
-  description: Plateforme de pricing FX temps réel — calculs financiers, streaming market data, API REST+WebSocket, frontend dashboard
-  created: "2026-05-22T00:00:00Z"
-  fire_version: "0.1.8"
-
+  description: Plateforme de pricing FX temps réel — calculs financiers, streaming
+    market data, API REST+WebSocket, frontend dashboard
+  created: 2026-05-22T00:00:00Z
+  fire_version: 0.1.8
 workspace:
   type: greenfield
   structure: monolith
   autonomy_bias: balanced
   run_scope_preference: single
   run_scope_history: []
-
 intents:
   - id: core-fx-domain
     title: Core FX Domain Layer
@@ -27,32 +26,36 @@ intents:
         complexity: low
         mode: autopilot
         status: pending
-        depends_on: [project-scaffold]
+        depends_on:
+          - project-scaffold
       - id: fx-market-calendar
         title: FX Market Calendar
         complexity: medium
         mode: confirm
         status: pending
-        depends_on: [fx-core-types]
+        depends_on:
+          - fx-core-types
       - id: fx-business-day-rules
         title: Business Day Adjustment Rules
         complexity: medium
         mode: confirm
         status: pending
-        depends_on: [fx-market-calendar]
+        depends_on:
+          - fx-market-calendar
       - id: fx-spot-value-dates
         title: FX Spot and Value Date Generation
         complexity: medium
         mode: confirm
         status: pending
-        depends_on: [fx-business-day-rules]
+        depends_on:
+          - fx-business-day-rules
       - id: fx-conventions-table
         title: FX Convention Registry
         complexity: medium
         mode: confirm
         status: pending
-        depends_on: [fx-spot-value-dates]
-
+        depends_on:
+          - fx-spot-value-dates
   - id: docker-ci-setup
     title: Dockerisation & CI GitHub
     status: in_progress
@@ -62,20 +65,22 @@ intents:
         complexity: low
         mode: autopilot
         status: pending
-        depends_on: [project-scaffold]
+        depends_on:
+          - project-scaffold
       - id: docker-compose-dev
         title: Docker Compose Dev Environment
         complexity: low
         mode: autopilot
         status: pending
-        depends_on: [dockerfile-backend]
+        depends_on:
+          - dockerfile-backend
       - id: github-actions-ci
         title: GitHub Actions CI (lint + test)
         complexity: medium
         mode: confirm
         status: pending
-        depends_on: [dockerfile-backend]
-
+        depends_on:
+          - dockerfile-backend
   - id: frontend-fx-reference
     title: Frontend FX Conventions & Calendars
     status: in_progress
@@ -85,32 +90,51 @@ intents:
         complexity: low
         mode: autopilot
         status: pending
-        depends_on: [project-scaffold]
+        depends_on:
+          - project-scaffold
       - id: api-fx-reference-data
         title: API Backend — Endpoints Conventions & Calendriers
         complexity: medium
         mode: confirm
         status: pending
-        depends_on: [fx-conventions-table]
+        depends_on:
+          - fx-conventions-table
       - id: frontend-conventions-page
         title: Page Conventions FX
         complexity: medium
         mode: confirm
         status: pending
-        depends_on: [frontend-scaffold, api-fx-reference-data]
+        depends_on:
+          - frontend-scaffold
+          - api-fx-reference-data
       - id: frontend-calendar-page
         title: Page Calendrier de Marché
         complexity: medium
         mode: confirm
         status: pending
-        depends_on: [frontend-scaffold, api-fx-reference-data]
+        depends_on:
+          - frontend-scaffold
+          - api-fx-reference-data
       - id: frontend-spot-calculator
         title: Calculateur de Dates Spot/Value
         complexity: medium
         mode: confirm
         status: pending
-        depends_on: [frontend-conventions-page, frontend-calendar-page]
-
+        depends_on:
+          - frontend-conventions-page
+          - frontend-calendar-page
 runs:
-  active: []
+  active:
+    - id: run-fx-pricing-001
+      scope: single
+      work_items:
+        - id: project-scaffold
+          intent: core-fx-domain
+          mode: autopilot
+          status: in_progress
+          current_phase: review
+          checkpoint_state: none
+          current_checkpoint: null
+      current_item: project-scaffold
+      started: 2026-05-22T16:36:14.555Z
   completed: []

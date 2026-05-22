@@ -1,3 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+*.egg-info/
+dist/
+build/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+coverage.xml
+.coverage
+
+# uv
+uv.lock
+
+# Environment
+.env
+.env.local
+
+# Node (for FIRE scripts)
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
 # Build and Release Folders
 bin-debug/
 bin-release/
