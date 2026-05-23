@@ -4,9 +4,13 @@ title: Page Calendrier de Marché
 intent: frontend-fx-reference
 complexity: medium
 mode: confirm
-status: pending
-depends_on: [frontend-scaffold, api-fx-reference-data]
-created: "2026-05-22T00:00:00Z"
+status: completed
+depends_on:
+  - frontend-scaffold
+  - api-fx-reference-data
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-013
+completed_at: 2026-05-23T11:50:17.463Z
 ---
 
 # Work Item: Page Calendrier de Marché

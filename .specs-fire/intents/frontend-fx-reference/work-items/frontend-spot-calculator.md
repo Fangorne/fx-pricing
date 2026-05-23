@@ -4,9 +4,13 @@ title: Calculateur de Dates Spot/Value
 intent: frontend-fx-reference
 complexity: medium
 mode: confirm
-status: pending
-depends_on: [frontend-conventions-page, frontend-calendar-page]
-created: "2026-05-22T00:00:00Z"
+status: completed
+depends_on:
+  - frontend-conventions-page
+  - frontend-calendar-page
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-014
+completed_at: 2026-05-23T11:58:29.215Z
 ---
 
 # Work Item: Calculateur de Dates Spot/Value

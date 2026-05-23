@@ -4,9 +4,12 @@ title: API Backend — Endpoints Conventions & Calendriers
 intent: frontend-fx-reference
 complexity: medium
 mode: confirm
-status: pending
-depends_on: [fx-conventions-table]
-created: "2026-05-22T00:00:00Z"
+status: completed
+depends_on:
+  - fx-conventions-table
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-011
+completed_at: 2026-05-23T11:36:23.688Z
 ---
 
 # Work Item: API Backend — Endpoints Conventions & Calendriers

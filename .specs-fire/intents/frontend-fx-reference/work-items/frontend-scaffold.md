@@ -4,9 +4,12 @@ title: Frontend Scaffold (Vite + React + TypeScript + Tailwind)
 intent: frontend-fx-reference
 complexity: low
 mode: autopilot
-status: pending
-depends_on: [project-scaffold]
-created: "2026-05-22T00:00:00Z"
+status: completed
+depends_on:
+  - project-scaffold
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-010
+completed_at: 2026-05-23T11:29:45.630Z
 ---
 
 # Work Item: Frontend Scaffold

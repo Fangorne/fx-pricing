@@ -107,43 +107,52 @@ intents:
         title: Frontend Scaffold (Vite + React + TypeScript + Tailwind)
         complexity: low
         mode: autopilot
-        status: pending
+        status: completed
         depends_on:
           - project-scaffold
+        run_id: run-fx-pricing-010
+        completed_at: 2026-05-23T11:29:45.630Z
       - id: api-fx-reference-data
         title: API Backend — Endpoints Conventions & Calendriers
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - fx-conventions-table
+        run_id: run-fx-pricing-011
+        completed_at: 2026-05-23T11:36:23.688Z
       - id: frontend-conventions-page
         title: Page Conventions FX
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - frontend-scaffold
           - api-fx-reference-data
+        run_id: run-fx-pricing-012
+        completed_at: 2026-05-23T11:42:25.283Z
       - id: frontend-calendar-page
         title: Page Calendrier de Marché
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - frontend-scaffold
           - api-fx-reference-data
+        run_id: run-fx-pricing-013
+        completed_at: 2026-05-23T11:50:17.463Z
       - id: frontend-spot-calculator
         title: Calculateur de Dates Spot/Value
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - frontend-conventions-page
           - frontend-calendar-page
+        run_id: run-fx-pricing-014
+        completed_at: 2026-05-23T11:58:29.215Z
 runs:
-  active:
-    []
+  active: []
   completed:
     - id: run-fx-pricing-001
       scope: single
@@ -217,3 +226,43 @@ runs:
           mode: confirm
       started: 2026-05-23T12:05:00.000Z
       completed: 2026-05-23T12:10:00.000Z
+    - id: run-fx-pricing-010
+      scope: single
+      work_items:
+        - id: frontend-scaffold
+          intent: frontend-fx-reference
+          mode: autopilot
+      started: 2026-05-23T11:16:45.463Z
+      completed: 2026-05-23T11:29:45.630Z
+    - id: run-fx-pricing-011
+      scope: single
+      work_items:
+        - id: api-fx-reference-data
+          intent: frontend-fx-reference
+          mode: confirm
+      started: 2026-05-23T11:31:22.285Z
+      completed: 2026-05-23T11:36:23.688Z
+    - id: run-fx-pricing-012
+      scope: single
+      work_items:
+        - id: frontend-conventions-page
+          intent: frontend-fx-reference
+          mode: confirm
+      started: 2026-05-23T11:37:52.696Z
+      completed: 2026-05-23T11:42:25.283Z
+    - id: run-fx-pricing-013
+      scope: single
+      work_items:
+        - id: frontend-calendar-page
+          intent: frontend-fx-reference
+          mode: confirm
+      started: 2026-05-23T11:43:30.552Z
+      completed: 2026-05-23T11:50:17.463Z
+    - id: run-fx-pricing-014
+      scope: single
+      work_items:
+        - id: frontend-spot-calculator
+          intent: frontend-fx-reference
+          mode: confirm
+      started: 2026-05-23T11:51:30.832Z
+      completed: 2026-05-23T11:58:29.215Z

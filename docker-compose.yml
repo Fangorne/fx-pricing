@@ -21,6 +21,21 @@ services:
       - fx-network
     restart: unless-stopped
 
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm install -g pnpm && pnpm install && pnpm dev"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    networks:
+      - fx-network
+    restart: unless-stopped
+
   postgres:
     image: postgres:16-alpine
     volumes:

@@ -4,9 +4,13 @@ title: Page Conventions FX
 intent: frontend-fx-reference
 complexity: medium
 mode: confirm
-status: pending
-depends_on: [frontend-scaffold, api-fx-reference-data]
-created: "2026-05-22T00:00:00Z"
+status: completed
+depends_on:
+  - frontend-scaffold
+  - api-fx-reference-data
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-012
+completed_at: 2026-05-23T11:42:25.283Z
 ---
 
 # Work Item: Page Conventions FX
