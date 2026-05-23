@@ -2,5 +2,10 @@
   "skillOverrides": {
     "speckit-dashboard": "name-only",
     "terraform_builder": "name-only"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(node *)"
+    ]
   }
 }

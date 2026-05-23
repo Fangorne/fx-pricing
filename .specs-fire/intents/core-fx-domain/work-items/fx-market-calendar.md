@@ -4,9 +4,12 @@ title: FX Market Calendar
 intent: core-fx-domain
 complexity: medium
 mode: confirm
-status: pending
-depends_on: [fx-core-types]
-created: "2026-05-22T00:00:00Z"
+status: completed
+depends_on:
+  - fx-core-types
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-003
+completed_at: 2026-05-23T10:21:40.876Z
 ---
 
 # Work Item: FX Market Calendar

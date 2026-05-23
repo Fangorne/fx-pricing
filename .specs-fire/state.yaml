@@ -19,43 +19,55 @@ intents:
         title: Project Scaffold
         complexity: low
         mode: autopilot
-        status: pending
+        status: completed
         depends_on: []
+        run_id: run-fx-pricing-001
+        completed_at: 2026-05-22T17:07:39.530Z
       - id: fx-core-types
         title: FX Core Value Objects
         complexity: low
         mode: autopilot
-        status: pending
+        status: completed
         depends_on:
           - project-scaffold
+        run_id: run-fx-pricing-002
+        completed_at: 2026-05-23T10:14:54.603Z
       - id: fx-market-calendar
         title: FX Market Calendar
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - fx-core-types
+        run_id: run-fx-pricing-003
+        completed_at: 2026-05-23T10:21:40.876Z
       - id: fx-business-day-rules
         title: Business Day Adjustment Rules
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - fx-market-calendar
+        run_id: run-fx-pricing-004
+        completed_at: 2026-05-23T10:26:26.943Z
       - id: fx-spot-value-dates
         title: FX Spot and Value Date Generation
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - fx-business-day-rules
+        run_id: run-fx-pricing-005
+        completed_at: 2026-05-23T10:32:50.763Z
       - id: fx-conventions-table
         title: FX Convention Registry
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - fx-spot-value-dates
+        run_id: run-fx-pricing-006
+        completed_at: 2026-05-23T10:37:06.457Z
   - id: docker-ci-setup
     title: Dockerisation & CI GitHub
     status: in_progress
@@ -64,23 +76,29 @@ intents:
         title: Dockerfile Backend Multi-Stage
         complexity: low
         mode: autopilot
-        status: pending
+        status: completed
         depends_on:
           - project-scaffold
+        run_id: run-fx-pricing-007
+        completed_at: 2026-05-23T10:49:42.825Z
       - id: docker-compose-dev
         title: Docker Compose Dev Environment
         complexity: low
         mode: autopilot
-        status: pending
+        status: completed
         depends_on:
           - dockerfile-backend
+        run_id: run-fx-pricing-008
+        completed_at: 2026-05-23T12:01:00.000Z
       - id: github-actions-ci
         title: GitHub Actions CI (lint + test)
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - dockerfile-backend
+        run_id: run-fx-pricing-009
+        completed_at: 2026-05-23T12:10:00.000Z
   - id: frontend-fx-reference
     title: Frontend FX Conventions & Calendars
     status: in_progress
@@ -125,16 +143,77 @@ intents:
           - frontend-calendar-page
 runs:
   active:
+    []
+  completed:
     - id: run-fx-pricing-001
       scope: single
       work_items:
         - id: project-scaffold
           intent: core-fx-domain
           mode: autopilot
-          status: in_progress
-          current_phase: review
-          checkpoint_state: none
-          current_checkpoint: null
-      current_item: project-scaffold
       started: 2026-05-22T16:36:14.555Z
-  completed: []
+      completed: 2026-05-22T17:07:39.530Z
+    - id: run-fx-pricing-002
+      scope: single
+      work_items:
+        - id: fx-core-types
+          intent: core-fx-domain
+          mode: autopilot
+      started: 2026-05-22T17:09:19.539Z
+      completed: 2026-05-23T10:14:54.603Z
+    - id: run-fx-pricing-003
+      scope: single
+      work_items:
+        - id: fx-market-calendar
+          intent: core-fx-domain
+          mode: confirm
+      started: 2026-05-23T10:15:56.182Z
+      completed: 2026-05-23T10:21:40.876Z
+    - id: run-fx-pricing-004
+      scope: single
+      work_items:
+        - id: fx-business-day-rules
+          intent: core-fx-domain
+          mode: confirm
+      started: 2026-05-23T10:22:44.871Z
+      completed: 2026-05-23T10:26:26.943Z
+    - id: run-fx-pricing-005
+      scope: single
+      work_items:
+        - id: fx-spot-value-dates
+          intent: core-fx-domain
+          mode: confirm
+      started: 2026-05-23T10:27:22.934Z
+      completed: 2026-05-23T10:32:50.763Z
+    - id: run-fx-pricing-006
+      scope: single
+      work_items:
+        - id: fx-conventions-table
+          intent: core-fx-domain
+          mode: confirm
+      started: 2026-05-23T10:33:56.009Z
+      completed: 2026-05-23T10:37:06.457Z
+    - id: run-fx-pricing-007
+      scope: single
+      work_items:
+        - id: dockerfile-backend
+          intent: docker-ci-setup
+          mode: autopilot
+      started: 2026-05-23T10:40:52.541Z
+      completed: 2026-05-23T10:49:42.825Z
+    - id: run-fx-pricing-008
+      scope: single
+      work_items:
+        - id: docker-compose-dev
+          intent: docker-ci-setup
+          mode: autopilot
+      started: 2026-05-23T10:50:58.081Z
+      completed: 2026-05-23T12:01:00.000Z
+    - id: run-fx-pricing-009
+      scope: single
+      work_items:
+        - id: github-actions-ci
+          intent: docker-ci-setup
+          mode: confirm
+      started: 2026-05-23T12:05:00.000Z
+      completed: 2026-05-23T12:10:00.000Z

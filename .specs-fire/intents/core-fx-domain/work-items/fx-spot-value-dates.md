@@ -4,9 +4,12 @@ title: FX Spot and Value Date Generation
 intent: core-fx-domain
 complexity: medium
 mode: confirm
-status: pending
-depends_on: [fx-business-day-rules]
-created: "2026-05-22T00:00:00Z"
+status: completed
+depends_on:
+  - fx-business-day-rules
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-005
+completed_at: 2026-05-23T10:32:50.763Z
 ---
 
 # Work Item: FX Spot and Value Date Generation

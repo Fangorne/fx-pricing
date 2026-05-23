@@ -1,8 +1,9 @@
 ---
 id: core-fx-domain
 title: Core FX Domain Layer
-status: in_progress
-created: "2026-05-22T00:00:00Z"
+status: completed
+created: 2026-05-22T00:00:00Z
+completed_at: 2026-05-23T10:37:06.464Z
 ---
 
 # Intent: Core FX Domain Layer

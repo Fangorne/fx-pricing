@@ -4,9 +4,12 @@ title: Dockerfile Backend Multi-Stage
 intent: docker-ci-setup
 complexity: low
 mode: autopilot
-status: pending
-depends_on: [project-scaffold]
-created: "2026-05-22T00:00:00Z"
+status: completed
+depends_on:
+  - project-scaffold
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-007
+completed_at: 2026-05-23T10:49:42.825Z
 ---
 
 # Work Item: Dockerfile Backend Multi-Stage

@@ -1,0 +1,38 @@
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Type checker and linter caches
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Tests (not needed in production image)
+tests/
+
+# Coverage reports
+.coverage
+coverage.xml
+htmlcov/
+
+# Editor artefacts
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS artefacts
+.DS_Store
+Thumbs.db
+
+# Docker itself
+Dockerfile
+.dockerignore

@@ -4,9 +4,11 @@ title: Project Scaffold
 intent: core-fx-domain
 complexity: low
 mode: autopilot
-status: pending
+status: completed
 depends_on: []
-created: "2026-05-22T00:00:00Z"
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-001
+completed_at: 2026-05-22T17:07:39.530Z
 ---
 
 # Work Item: Project Scaffold

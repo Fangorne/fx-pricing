@@ -4,9 +4,12 @@ title: Business Day Adjustment Rules
 intent: core-fx-domain
 complexity: medium
 mode: confirm
-status: pending
-depends_on: [fx-market-calendar]
-created: "2026-05-22T00:00:00Z"
+status: completed
+depends_on:
+  - fx-market-calendar
+created: 2026-05-22T00:00:00Z
+run_id: run-fx-pricing-004
+completed_at: 2026-05-23T10:26:26.943Z
 ---
 
 # Work Item: Business Day Adjustment Rules

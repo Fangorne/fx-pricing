@@ -5,14 +5,14 @@ work_items:
   - id: project-scaffold
     intent: core-fx-domain
     mode: autopilot
-    status: in_progress
-    current_phase: plan
+    status: completed
+    current_phase: review
     checkpoint_state: none
     current_checkpoint: null
-current_item: project-scaffold
-status: in_progress
+current_item: null
+status: completed
 started: 2026-05-22T16:36:14.555Z
-completed: null
+completed: 2026-05-22T17:07:39.530Z
 ---
 
 # Run: run-fx-pricing-001
@@ -21,16 +21,35 @@ completed: null
 single (1 work item)
 
 ## Work Items
-1. **project-scaffold** (autopilot) — in_progress
+1. **project-scaffold** (autopilot) — completed
+
 
 ## Current Item
-project-scaffold (autopilot)
+(all completed)
 
 ## Files Created
-(none yet)
+- `backend/app/main.py`: FastAPI app with health endpoint
+- `backend/app/domain/__init__.py`: Domain layer
+- `backend/app/application/__init__.py`: Application layer
+- `backend/app/infrastructure/__init__.py`: Infrastructure layer
+- `backend/app/api/__init__.py`: API layer
+- `backend/tests/conftest.py`: Pytest fixtures
+- `backend/tests/integration/test_health.py`: Health smoke test
+- `backend/pyproject.toml`: Project config
+- `.github/workflows/ci.yml`: CI workflow
 
 ## Files Modified
-(none yet)
+(none)
 
 ## Decisions
-(none yet)
+(none)
+
+
+## Summary
+
+- Work items completed: 1
+- Files created: 9
+- Files modified: 0
+- Tests added: 1
+- Coverage: 100%
+- Completed: 2026-05-22T17:07:39.530Z
