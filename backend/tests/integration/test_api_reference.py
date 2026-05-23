@@ -92,7 +92,7 @@ async def test_business_day_holiday(client: AsyncClient) -> None:
 async def test_spot_date_eurusd(client: AsyncClient) -> None:
     # 2026-05-22 is Friday. May 25 is Memorial Day (last Mon May).
     # +1 BD = Tue May 26, +2 BD = Wed May 27 → spot = 2026-05-27
-    response = await client.get("/api/v1/spot-dates/EURUSD?trade_date=2026-05-22")
+    response = await client.get("/api/v1/spot-dates?pair=EUR/USD&trade_date=2026-05-22")
     assert response.status_code == 200
     data = response.json()
     assert data["spot_date"] == "2026-05-27"
@@ -102,7 +102,7 @@ async def test_spot_date_eurusd(client: AsyncClient) -> None:
 @pytest.mark.asyncio
 async def test_value_date_eurusd_3m(client: AsyncClient) -> None:
     response = await client.get(
-        "/api/v1/spot-dates/EURUSD/value?trade_date=2026-05-22&tenor=3M"
+        "/api/v1/spot-dates/value?pair=EUR/USD&trade_date=2026-05-22&tenor=3M"
     )
     assert response.status_code == 200
     data = response.json()
@@ -113,7 +113,7 @@ async def test_value_date_eurusd_3m(client: AsyncClient) -> None:
 
 @pytest.mark.asyncio
 async def test_spot_date_unknown_pair_returns_404(client: AsyncClient) -> None:
-    response = await client.get("/api/v1/spot-dates/XXXYYY?trade_date=2026-05-22")
+    response = await client.get("/api/v1/spot-dates?pair=XXXYYY&trade_date=2026-05-22")
     # XXXYYY parses as an unknown Currency → 422 from CurrencyPair.from_string
     assert response.status_code in (404, 422)
 
@@ -121,6 +121,6 @@ async def test_spot_date_unknown_pair_returns_404(client: AsyncClient) -> None:
 @pytest.mark.asyncio
 async def test_value_date_invalid_tenor(client: AsyncClient) -> None:
     response = await client.get(
-        "/api/v1/spot-dates/EURUSD/value?trade_date=2026-05-22&tenor=BADTENOR"
+        "/api/v1/spot-dates/value?pair=EUR/USD&trade_date=2026-05-22&tenor=BADTENOR"
     )
     assert response.status_code == 422

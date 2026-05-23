@@ -56,7 +56,7 @@ export function checkBusinessDay(currency: string, date: string): Promise<Busine
 }
 
 export function calculateSpotDate(pair: string, tradeDate: string): Promise<SpotDateResult> {
-  return get(`/api/v1/spot-dates/${encodeURIComponent(pair)}?trade_date=${tradeDate}`)
+  return get(`/api/v1/spot-dates?pair=${encodeURIComponent(pair)}&trade_date=${tradeDate}`)
 }
 
 export function calculateValueDate(
@@ -65,6 +65,6 @@ export function calculateValueDate(
   tenor: string,
 ): Promise<SpotDateResult> {
   return get(
-    `/api/v1/spot-dates/${encodeURIComponent(pair)}/value?trade_date=${tradeDate}&tenor=${tenor}`,
+    `/api/v1/spot-dates/value?pair=${encodeURIComponent(pair)}&trade_date=${tradeDate}&tenor=${tenor}`,
   )
 }

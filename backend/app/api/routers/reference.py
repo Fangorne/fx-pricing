@@ -130,10 +130,10 @@ async def check_business_day(
 # ---------------------------------------------------------------------------
 
 
-@router.get("/spot-dates/{pair}", response_model=SpotDateResponse)
+@router.get("/spot-dates", response_model=SpotDateResponse)
 async def calculate_spot_date(
-    pair: str,
-    trade_date: Annotated[date, Query(...)],  # type: ignore[valid-type]
+    pair: str = Query(...),
+    trade_date: Annotated[date, Query(...)] = ...,  # type: ignore[valid-type]
 ) -> SpotDateResponse:
     """Return the spot settlement date for a currency pair."""
     cp = _parse_pair(pair)
@@ -146,10 +146,10 @@ async def calculate_spot_date(
     return SpotDateResponse(pair=str(cp), trade_date=trade_date, spot_date=sd)
 
 
-@router.get("/spot-dates/{pair}/value", response_model=ValueDateResponse)
+@router.get("/spot-dates/value", response_model=ValueDateResponse)
 async def calculate_value_date(
-    pair: str,
-    trade_date: Annotated[date, Query(...)],  # type: ignore[valid-type]
+    pair: str = Query(...),
+    trade_date: Annotated[date, Query(...)] = ...,  # type: ignore[valid-type]
     tenor: str = Query(...),
 ) -> ValueDateResponse:
     """Return the value date for a currency pair and tenor."""
