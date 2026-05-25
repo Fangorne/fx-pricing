@@ -215,9 +215,11 @@ intents:
         title: Yahoo Finance Provider Adapter
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - market-data-domain
+        run_id: run-fx-pricing-021
+        completed_at: 2026-05-25T16:30:00.000Z
       - id: redis-price-cache
         title: Redis Price Cache Layer
         complexity: medium
@@ -235,6 +237,14 @@ intents:
 runs:
   active: []
   completed:
+    - id: run-fx-pricing-021
+      scope: single
+      work_items:
+        - id: yahoo-finance-provider
+          intent: market-data-providers
+          mode: confirm
+      started: 2026-05-25T16:15:00.000Z
+      completed: 2026-05-25T16:30:00.000Z
     - id: run-fx-pricing-020
       scope: single
       work_items:
