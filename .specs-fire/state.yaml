@@ -199,6 +199,37 @@ intents:
           - db-wire-api
         run_id: run-fx-pricing-019
         completed_at: 2026-05-25T15:30:00.000Z
+  - id: market-data-providers
+    title: Market Data Providers — Yahoo Finance + Redis Cache
+    status: planning
+    work_items:
+      - id: market-data-domain
+        title: Market Data Domain Types & Provider Interface
+        complexity: low
+        mode: autopilot
+        status: pending
+        depends_on: []
+      - id: yahoo-finance-provider
+        title: Yahoo Finance Provider Adapter
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on:
+          - market-data-domain
+      - id: redis-price-cache
+        title: Redis Price Cache Layer
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on:
+          - yahoo-finance-provider
+      - id: market-data-api
+        title: Market Data REST API Endpoints
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on:
+          - redis-price-cache
 runs:
   active: []
   completed:
