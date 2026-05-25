@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
+from datetime import datetime
 
+import redis.asyncio as aioredis
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+from pytz import UTC
 
 from app.config import get_settings
 from app.domain.conventions import FX_CONVENTIONS
@@ -14,13 +16,11 @@ from app.domain.market_data import SpotPrice
 from app.infrastructure.cache.price_cache import PriceCache
 from app.infrastructure.providers.yahoo_finance import YahooFinanceProvider
 
-import redis.asyncio as aioredis
-
 router = APIRouter()
 
 
 def _price_payload(price: SpotPrice, stale_threshold: int) -> dict:
-    now = datetime.now(tz=timezone.utc)
+    now = datetime.now(tz=UTC)
     age = (now - price.timestamp).total_seconds()
     return {
         "pair": price.pair,
@@ -64,7 +64,9 @@ async def ws_spot_price(websocket: WebSocket, pair: str) -> None:
         while True:
             try:
                 price = await cache.get_or_fetch(pair, provider)
-                await websocket.send_json(_price_payload(price, settings.market_data_stale_threshold_seconds))
+                await websocket.send_json(
+                    _price_payload(price, settings.market_data_stale_threshold_seconds)
+                )
             except MarketDataUnavailableError as exc:
                 await websocket.send_json({"error": str(exc), "pair": pair})
             await asyncio.sleep(settings.ws_price_interval_seconds)
