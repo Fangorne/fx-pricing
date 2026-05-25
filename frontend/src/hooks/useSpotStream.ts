@@ -16,13 +16,14 @@ export function useSpotStream(pair: string): UseSpotStreamResult {
   const reconnectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    // Per-effect cancellation flag — not shared across pair changes.
-    // A shared ref would be reset to false by the new effect before the old
-    // WebSocket's onclose fires, causing the old connection to schedule a
-    // reconnect for the stale pair.
     let cancelled = false
     let attempt = 0
     let ws: WebSocket | null = null
+
+    // Clear stale data immediately so the old pair's price never shows
+    // while connecting to the new pair.
+    setPrice(null)
+    setStatus('connecting')
 
     function connect() {
       if (cancelled) return
