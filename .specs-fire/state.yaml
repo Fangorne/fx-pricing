@@ -185,9 +185,11 @@ intents:
         title: Wiring API → DB (remplacer données statiques)
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - db-repository-layer
+        run_id: run-fx-pricing-018
+        completed_at: 2026-05-25T15:10:00.000Z
       - id: swagger-ui-config
         title: Configuration Swagger UI
         complexity: low
