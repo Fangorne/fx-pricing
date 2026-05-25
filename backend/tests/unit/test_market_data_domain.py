@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 
@@ -11,10 +11,12 @@ from app.domain.market_data import SpotPrice
 
 
 def _now() -> datetime:
-    return datetime.now(tz=timezone.utc)
+    return datetime.now(tz=UTC)
 
 
-def _spot(bid: float = 1.0800, ask: float = 1.0802, pair: str = "EUR/USD", ts: datetime | None = None) -> SpotPrice:
+def _spot(
+    bid: float = 1.0800, ask: float = 1.0802, pair: str = "EUR/USD", ts: datetime | None = None
+) -> SpotPrice:
     return SpotPrice(pair=pair, bid=bid, ask=ask, timestamp=ts or _now())
 
 
@@ -24,8 +26,8 @@ def _spot(bid: float = 1.0800, ask: float = 1.0802, pair: str = "EUR/USD", ts: d
 def test_spot_price_valid():
     s = _spot()
     assert s.pair == "EUR/USD"
-    assert s.bid == 1.0800
-    assert s.ask == 1.0802
+    assert s.bid == pytest.approx(1.0800)
+    assert s.ask == pytest.approx(1.0802)
 
 
 def test_spot_price_mid():

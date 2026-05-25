@@ -43,11 +43,14 @@ def _to_response(price: SpotPrice, stale_threshold: int = 60) -> SpotPriceRespon
     summary="Get spot price for a currency pair",
     description=(
         "Returns the latest FX spot price for a single G10 currency pair. "
-        "Data is served from the Redis cache when fresh; otherwise fetched live from Yahoo Finance. "
+        "Data is served from the Redis cache when fresh; otherwise fetched live from Yahoo Finance."
         "If the provider is unavailable but a stale cached value exists, it is returned with `is_stale=true`."
     ),
     response_description="Live or cached spot price with staleness metadata",
-    responses={**_404, **_503},
+    responses={
+        404: {"description": "Currency pair not supported"},
+        **_503,
+    },
 )
 async def get_spot_price(
     pair: str,
@@ -56,7 +59,9 @@ async def get_spot_price(
 ) -> SpotPriceResponse:
     pair = pair.upper().replace("-", "/")
     if pair not in FX_CONVENTIONS:
-        raise HTTPException(status_code=404, detail=f"Currency pair {pair!r} is not a supported G10 pair")
+        raise HTTPException(
+            status_code=404, detail=f"Currency pair {pair!r} is not a supported G10 pair"
+        )
     try:
         price = await cache.get_or_fetch(pair, provider)
         return _to_response(price)
@@ -79,7 +84,9 @@ async def get_spot_price(
 async def get_spot_prices(
     cache: Annotated[PriceCache, Depends(get_price_cache)],
     provider: Annotated[MarketDataProvider, Depends(get_provider)],
-    pairs: Annotated[str | None, Query(description="Comma-separated currency pairs, e.g. EUR/USD,USD/JPY")] = None,
+    pairs: Annotated[
+        str | None, Query(description="Comma-separated currency pairs, e.g. EUR/USD,USD/JPY")
+    ] = None,
 ) -> list[SpotPriceResponse]:
     if pairs:
         requested = [p.strip().upper().replace("-", "/") for p in pairs.split(",")]
