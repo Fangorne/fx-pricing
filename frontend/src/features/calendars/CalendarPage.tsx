@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useCalendar } from '@/hooks/useCalendar'
 import { HolidayList } from './HolidayList'
 import { BusinessDayChecker } from './BusinessDayChecker'
+import { Alert } from '@/components/ui/Alert'
+import { Badge } from '@/components/ui/Badge'
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD', 'SEK', 'NOK']
 
@@ -14,60 +16,72 @@ export function CalendarPage() {
   const { holidays, loading, error } = useCalendar(currency, year)
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-100">Calendriers de Marché</h1>
-        <span className="text-sm text-gray-500">{holidays.length} jours fériés</span>
+    <div className="space-y-4 px-6 py-6">
+      {/* Page header */}
+      <div className="flex items-center justify-between border-b border-border-subtle pb-2">
+        <span className="text-label uppercase tracking-wider text-text-muted">Market Calendars</span>
+        {!loading && holidays.length > 0 && (
+          <Badge variant="neutral">{holidays.length} holidays</Badge>
+        )}
       </div>
 
-      <div className="flex flex-wrap gap-4">
-        <div className="space-y-1">
-          <label className="text-xs font-medium uppercase tracking-wide text-gray-500">
-            Devise
-          </label>
-          <select
-            value={currency}
-            onChange={(e) => setCurrency(e.target.value)}
-            className="rounded-lg border border-gray-700 bg-gray-900 px-4 py-2 text-gray-100 focus:border-blue-500 focus:outline-none"
-          >
+      {/* Controls */}
+      <div className="flex flex-wrap items-end gap-3">
+        <div>
+          <p className="text-label uppercase tracking-wider text-text-muted mb-1">Currency</p>
+          <div className="flex gap-1 flex-wrap">
             {CURRENCIES.map((c) => (
-              <option key={c} value={c}>
+              <button
+                key={c}
+                onClick={() => setCurrency(c)}
+                className={`
+                  rounded px-2.5 py-1 font-mono text-xs font-semibold transition-colors duration-[100ms]
+                  ${c === currency
+                    ? 'bg-accent/15 text-accent border border-accent/30'
+                    : 'border border-border-default bg-bg-elevated text-text-secondary hover:border-border-strong hover:text-text-primary'
+                  }
+                `}
+              >
                 {c}
-              </option>
+              </button>
             ))}
-          </select>
+          </div>
         </div>
 
-        <div className="space-y-1">
-          <label className="text-xs font-medium uppercase tracking-wide text-gray-500">Année</label>
-          <select
-            value={year}
-            onChange={(e) => setYear(Number(e.target.value))}
-            className="rounded-lg border border-gray-700 bg-gray-900 px-4 py-2 text-gray-100 focus:border-blue-500 focus:outline-none"
-          >
+        <div>
+          <p className="text-label uppercase tracking-wider text-text-muted mb-1">Year</p>
+          <div className="flex gap-1">
             {YEARS.map((y) => (
-              <option key={y} value={y}>
+              <button
+                key={y}
+                onClick={() => setYear(y)}
+                className={`
+                  rounded px-2.5 py-1 font-mono text-xs font-semibold transition-colors duration-[100ms]
+                  ${y === year
+                    ? 'bg-accent/15 text-accent border border-accent/30'
+                    : 'border border-border-default bg-bg-elevated text-text-secondary hover:border-border-strong hover:text-text-primary'
+                  }
+                `}
+              >
                 {y}
-              </option>
+              </button>
             ))}
-          </select>
+          </div>
         </div>
       </div>
 
-      {error && (
-        <div className="rounded-lg border border-red-800 bg-red-950 px-4 py-3 text-red-400">
-          API inaccessible — {error}
-        </div>
-      )}
+      {error && <Alert variant="error">API unavailable — {error}</Alert>}
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
+        {/* Holiday list */}
         <div className="space-y-2">
-          <h2 className="text-lg font-semibold text-gray-100">
-            Jours fériés {currency} {year}
-          </h2>
+          <p className="text-label uppercase tracking-wider text-text-muted">
+            {currency} holidays {year}
+          </p>
           <HolidayList holidays={holidays} loading={loading} />
         </div>
 
+        {/* Business day checker */}
         <BusinessDayChecker currency={currency} />
       </div>
     </div>

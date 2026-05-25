@@ -1,4 +1,7 @@
 import { useConventionDetail } from '@/hooks/useConventions'
+import { Panel } from '@/components/ui/Panel'
+import { Skeleton } from '@/components/ui/Skeleton'
+import { Alert } from '@/components/ui/Alert'
 
 interface Props {
   pair: string
@@ -11,9 +14,9 @@ interface RowProps {
 
 function Row({ label, value }: RowProps) {
   return (
-    <div className="flex justify-between border-b border-gray-800 py-3">
-      <span className="text-gray-400">{label}</span>
-      <span className="font-mono text-gray-100">{value}</span>
+    <div className="flex items-center justify-between border-b border-border-subtle py-2.5">
+      <span className="text-xs text-text-secondary">{label}</span>
+      <span className="font-mono text-sm font-semibold text-text-primary">{value}</span>
     </div>
   )
 }
@@ -23,32 +26,29 @@ export function ConventionDetail({ pair }: Props) {
 
   if (loading) {
     return (
-      <div className="animate-pulse space-y-3 rounded-lg border border-gray-800 bg-gray-900 p-6">
-        {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-8 rounded bg-gray-800" />
-        ))}
-      </div>
+      <Panel>
+        <Skeleton lines={5} />
+      </Panel>
     )
   }
 
   if (error) {
-    return (
-      <div className="rounded-lg border border-red-800 bg-red-950 p-6 text-red-400">{error}</div>
-    )
+    return <Alert variant="error">{error}</Alert>
   }
 
   if (!convention) return null
 
   return (
-    <div className="rounded-lg border border-gray-800 bg-gray-900 p-6">
-      <h2 className="mb-4 font-mono text-xl font-bold text-blue-400">{convention.pair}</h2>
-      <div className="space-y-1">
+    <Panel>
+      <p className="text-label uppercase tracking-wider text-text-muted mb-3">Convention detail</p>
+      <p className="font-mono text-data-lg font-bold text-accent mb-4">{convention.pair}</p>
+      <div>
         <Row label="Spot Lag" value={`T+${convention.spotLag}`} />
         <Row label="Day Count Basis" value={convention.dayCount} />
         <Row label="Roll Convention" value={convention.businessDayConvention} />
         <Row label="Pip Precision" value={convention.pricingPrecision} />
         <Row label="Pip Size" value={convention.pipSize} />
       </div>
-    </div>
+    </Panel>
   )
 }

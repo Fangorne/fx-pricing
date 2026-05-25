@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { useBusinessDay } from '@/hooks/useCalendar'
+import { Panel } from '@/components/ui/Panel'
+import { FieldLabel } from '@/components/ui/FieldLabel'
+import { Badge } from '@/components/ui/Badge'
 
 interface Props {
   currency: string
@@ -10,36 +13,43 @@ export function BusinessDayChecker({ currency }: Props) {
   const { result, loading, error } = useBusinessDay(currency, date)
 
   return (
-    <div className="rounded-lg border border-gray-800 bg-gray-900 p-6 space-y-4">
-      <h2 className="text-lg font-semibold text-gray-100">Vérifier une date</h2>
+    <Panel className="space-y-4 self-start">
+      <p className="text-label uppercase tracking-wider text-text-muted">Business Day Check</p>
+      <p className="font-mono text-sm font-semibold text-accent">{currency}</p>
 
-      <input
-        type="date"
-        value={date}
-        onChange={(e) => setDate(e.target.value)}
-        className="w-full rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-gray-100 focus:border-blue-500 focus:outline-none"
-      />
+      <div>
+        <FieldLabel htmlFor="check-date">Select date</FieldLabel>
+        <input
+          id="check-date"
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="form-control font-mono"
+        />
+      </div>
 
-      {loading && <div className="h-8 w-40 animate-pulse rounded bg-gray-800" />}
+      {loading && (
+        <div className="h-6 w-32 animate-pulse rounded bg-bg-overlay" />
+      )}
 
-      {error && !loading && <p className="text-sm text-red-400">Erreur — {error}</p>}
+      {error && !loading && (
+        <p className="text-xs text-negative">Error — {error}</p>
+      )}
 
       {result && !loading && (
-        <div
-          className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium ${
-            result.is_business_day
-              ? 'bg-green-900/50 text-green-400 border border-green-800'
-              : 'bg-red-900/50 text-red-400 border border-red-800'
-          }`}
-        >
-          <span
-            className={`h-2 w-2 rounded-full ${result.is_business_day ? 'bg-green-400' : 'bg-red-400'}`}
-          />
-          {result.is_business_day
-            ? 'Business Day'
-            : `Non ouvré${result.reason ? ` — ${result.reason}` : ''}`}
+        <div className="space-y-1">
+          <Badge variant={result.is_business_day ? 'positive' : 'negative'} dot>
+            {result.is_business_day ? 'Business Day' : 'Non-business Day'}
+          </Badge>
+          {result.reason && (
+            <p className="text-xs text-text-muted mt-1.5">{result.reason}</p>
+          )}
         </div>
       )}
-    </div>
+
+      {!date && !result && (
+        <p className="text-xs text-text-muted">Select a date above to check.</p>
+      )}
+    </Panel>
   )
 }

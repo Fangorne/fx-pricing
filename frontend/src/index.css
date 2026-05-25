@@ -1,3 +1,125 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Backgrounds */
+    --bg-base:     #0a0e17;
+    --bg-surface:  #0f1520;
+    --bg-elevated: #141c2b;
+    --bg-overlay:  #192234;
+
+    /* Borders */
+    --border-subtle:  #1a2236;
+    --border-default: #1f2d45;
+    --border-strong:  #2a3d5c;
+
+    /* Text */
+    --text-primary:   #d4e0f5;
+    --text-secondary: #6e88a8;
+    --text-muted:     #354d6a;
+    --text-inverse:   #0a0e17;
+
+    /* Accent */
+    --accent:        #00b4c8;
+    --accent-subtle: #00232a;
+    --accent-hover:  #00cce0;
+    --accent-dim:    #007f8f;
+
+    /* Semantic */
+    --positive:        #00d47a;
+    --positive-subtle: #002e1c;
+    --negative:        #f0384f;
+    --negative-subtle: #2b0c12;
+    --warning:         #f5a623;
+    --warning-subtle:  #291a00;
+  }
+
+  html,
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+  }
+
+  /* Scrollbars — thin, dark, terminal-style */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-base);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+  }
+
+  /* Focus ring — keyboard accessibility */
+  *:focus-visible {
+    outline: 1.5px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Date picker icon — readable on dark backgrounds */
+  input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(0.5) sepia(1) saturate(2) hue-rotate(155deg);
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  input[type='date']::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+  }
+}
+
+@layer components {
+  /* ─── Shared form control base ─────────────────────────────────── */
+  .form-control {
+    @apply w-full rounded-md border border-border-default bg-bg-elevated px-3 py-1.5
+           font-mono text-sm text-text-primary placeholder-text-muted
+           transition-colors duration-[150ms]
+           hover:border-border-strong
+           focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/40;
+  }
+
+  /* ─── Table system ─────────────────────────────────────────────── */
+  .data-table {
+    @apply w-full text-sm;
+  }
+  .data-table thead {
+    @apply sticky top-0 z-10 bg-bg-elevated;
+  }
+  .data-table th {
+    @apply px-3 py-2 text-left text-label font-semibold uppercase tracking-wider
+           text-text-muted border-b border-border-default;
+  }
+  .data-table th.text-right { text-align: right; }
+  .data-table th.text-center { text-align: center; }
+  .data-table tbody { @apply divide-y divide-border-subtle; }
+  .data-table td { @apply px-3 py-2; }
+  .data-table tbody tr { @apply transition-colors duration-[100ms] hover:bg-bg-overlay; }
+
+  /* ─── Stat display (key metric cells) ─────────────────────────── */
+  .stat-value {
+    @apply font-mono font-semibold text-text-primary;
+  }
+  .stat-label {
+    @apply text-label uppercase tracking-wider text-text-muted;
+  }
+
+  /* ─── Section header inside a page ────────────────────────────── */
+  .section-header {
+    @apply flex items-center justify-between border-b border-border-subtle pb-2 mb-4;
+  }
+  .section-title {
+    @apply text-label uppercase tracking-wider text-text-muted;
+  }
+}

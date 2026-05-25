@@ -1,51 +1,40 @@
-import { Link } from 'react-router-dom'
 import type { FXConvention } from '@/types/fx'
 
 interface Props {
   conventions: FXConvention[]
-  selectedPair?: string
 }
 
-export function ConventionsList({ conventions, selectedPair }: Props) {
+export function ConventionsList({ conventions }: Props) {
   return (
-    <div className="overflow-x-auto rounded-lg border border-gray-800">
-      <table className="w-full text-sm">
-        <thead className="bg-gray-900 text-gray-400">
+    <div className="overflow-x-auto rounded-lg border border-border-default">
+      <table className="data-table">
+        <thead>
           <tr>
-            <th className="px-4 py-3 text-left font-medium">Pair</th>
-            <th className="px-4 py-3 text-left font-medium">Spot Lag</th>
-            <th className="px-4 py-3 text-left font-medium">Day Count</th>
-            <th className="px-4 py-3 text-left font-medium">Pip Precision</th>
+            <th scope="col">Pair</th>
+            <th scope="col" className="text-center">Spot Lag</th>
+            <th scope="col">Day Count</th>
+            <th scope="col">Roll Convention</th>
+            <th scope="col" className="text-right">Pip Size</th>
+            <th scope="col" className="text-center">Precision</th>
+            <th scope="col">Calendars</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-800">
-          {conventions.map((c) => {
-            const isSelected = c.pair === selectedPair
-            return (
-              <tr
-                key={c.pair}
-                className={`cursor-pointer transition-colors hover:bg-gray-800 ${
-                  isSelected ? 'bg-gray-800' : ''
-                }`}
-              >
-                <td className="px-4 py-3">
-                  <Link
-                    to={`/conventions/${encodeURIComponent(c.pair)}`}
-                    className="font-mono font-semibold text-blue-400 hover:text-blue-300"
-                  >
-                    {c.pair}
-                  </Link>
-                </td>
-                <td className="px-4 py-3 text-gray-300">T+{c.spotLag}</td>
-                <td className="px-4 py-3 text-gray-300">{c.dayCount}</td>
-                <td className="px-4 py-3 text-gray-300">{c.pricingPrecision}</td>
-              </tr>
-            )
-          })}
+        <tbody>
+          {conventions.map((c) => (
+            <tr key={c.pair}>
+              <td className="font-mono font-semibold text-text-primary">{c.pair}</td>
+              <td className="text-center font-mono text-text-secondary">T+{c.spotLag}</td>
+              <td className="font-mono text-text-secondary">{c.dayCount}</td>
+              <td className="font-mono text-text-secondary">{c.businessDayConvention}</td>
+              <td className="text-right font-mono text-text-secondary">{c.pipSize}</td>
+              <td className="text-center font-mono text-text-secondary">{c.pricingPrecision}</td>
+              <td className="font-mono text-text-muted">{c.settlementCalendars.join(', ')}</td>
+            </tr>
+          ))}
           {conventions.length === 0 && (
             <tr>
-              <td colSpan={4} className="px-4 py-8 text-center text-gray-500">
-                Aucune paire trouvée
+              <td colSpan={7} className="px-3 py-10 text-center text-text-muted">
+                No pairs found
               </td>
             </tr>
           )}
