@@ -153,7 +153,7 @@ intents:
         completed_at: 2026-05-23T11:58:29.215Z
   - id: database-swagger
     title: Base de données & Swagger UI
-    status: in_progress
+    status: completed
     work_items:
       - id: db-sqlalchemy-models
         title: SQLAlchemy Models (conventions, calendriers, holidays)
@@ -194,9 +194,11 @@ intents:
         title: Configuration Swagger UI
         complexity: low
         mode: autopilot
-        status: pending
+        status: completed
         depends_on:
           - db-wire-api
+        run_id: run-fx-pricing-019
+        completed_at: 2026-05-25T15:30:00.000Z
 runs:
   active: []
   completed:
