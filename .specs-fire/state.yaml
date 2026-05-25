@@ -176,9 +176,11 @@ intents:
         title: Repository layer async (CRUD)
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - db-alembic-migrations
+        run_id: run-fx-pricing-017
+        completed_at: 2026-05-25T14:50:00.000Z
       - id: db-wire-api
         title: Wiring API → DB (remplacer données statiques)
         complexity: medium
