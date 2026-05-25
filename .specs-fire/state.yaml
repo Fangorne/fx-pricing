@@ -238,9 +238,50 @@ intents:
           - redis-price-cache
         run_id: run-fx-pricing-023
         completed_at: 2026-05-25T17:30:00.000Z
+  - id: websocket-streaming
+    title: WebSocket Streaming — Live FX Spot Prices
+    status: in_progress
+    work_items:
+      - id: ws-backend-endpoint
+        title: WebSocket Backend Endpoint
+        complexity: medium
+        mode: confirm
+        status: completed
+        depends_on: []
+        run_id: run-fx-pricing-024
+        completed_at: 2026-05-25T18:00:00.000Z
+      - id: ws-frontend-hook
+        title: useSpotStream React Hook
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on:
+          - ws-backend-endpoint
+      - id: ws-price-widget
+        title: SpotPriceTicker Component
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on:
+          - ws-frontend-hook
+      - id: ws-prices-page
+        title: Live Prices Page & Navigation
+        complexity: low
+        mode: autopilot
+        status: pending
+        depends_on:
+          - ws-price-widget
 runs:
   active: []
   completed:
+    - id: run-fx-pricing-024
+      scope: single
+      work_items:
+        - id: ws-backend-endpoint
+          intent: websocket-streaming
+          mode: confirm
+      started: 2026-05-25T17:50:00.000Z
+      completed: 2026-05-25T18:00:00.000Z
     - id: run-fx-pricing-023
       scope: single
       work_items:

@@ -43,6 +43,9 @@ class Settings(BaseSettings):
     market_data_cache_ttl_seconds: int = 30
     market_data_stale_threshold_seconds: int = 60
 
+    # WebSocket streaming
+    ws_price_interval_seconds: int = 5
+
     # App
     secret_key: str = "changeme"
     debug: bool = False
