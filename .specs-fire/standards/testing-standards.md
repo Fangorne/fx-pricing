@@ -20,6 +20,7 @@ Stratégie de test pour FX Pricing : priorité aux tests quantitatifs (non-régr
 | Integration (API) | pytest + httpx | `backend/tests/integration/` | Endpoints REST, auth, DB |
 | Integration (WS) | pytest + websockets | `backend/tests/integration/` | Streaming, subscriptions |
 | Regression pricing | pytest | `backend/tests/regression/` | Non-régression sur valeurs de référence |
+| Mutation testing | mutmut | `backend/tests/unit/` | Vérifier la qualité des assertions sur le domaine FX |
 | E2E | Playwright | `e2e/` | Flux complets : ticket FX → prix → booking |
 
 ## Coverage Requirements
@@ -87,6 +88,29 @@ def test_forward_rate_eurusd_3m_matches_reference() -> None:
 - Données de calendriers issues de sources officielles (calendriers FED, BCE, BOJ)
 - Ne jamais utiliser `random` dans les tests de pricing
 
+## Mutation Testing
+
+**Tool**: mutmut
+**Scope**: `backend/app/domain/` uniquement — le domaine FX est le périmètre critique
+**Target mutation score**: ≥ 80% sur `domain/`
+
+**Rationale**: La couverture de ligne mesure l'exécution du code, pas la qualité des assertions. Le mutation testing détecte les assertions trop permissives (ex. `assert result is not None` au lieu de vérifier la valeur exacte). Critique pour les calculs financiers où une assertion faible peut masquer une régression de 10 pips.
+
+**Focus modules** (par ordre de priorité) :
+1. `app/domain/conventions.py` — DayCountBasis, FXConvention
+2. `app/domain/business_day.py` — adjust(), Modified Following
+3. `app/domain/date_generation.py` — spot_date(), value_date()
+4. `app/domain/calendar.py` — is_business_day(), holidays()
+
+**Configuration** (`pyproject.toml`) :
+```toml
+[tool.mutmut]
+paths_to_mutate = "app/domain/"
+tests_dir = "tests/unit/"
+```
+
+**CI**: Non-bloquant en PR (coût CPU) — run hebdomadaire via GitHub Actions schedule. Bloquant uniquement si le score tombe sous 70%.
+
 ## Running Tests
 
 ```bash
@@ -104,6 +128,11 @@ cd backend && uv run pytest tests/regression/ -v
 
 # Run in watch mode
 cd backend && uv run pytest-watch
+
+# Mutation testing (domaine FX uniquement)
+cd backend && uv run mutmut run
+uv run mutmut results          # résumé
+uv run mutmut show <id>        # voir le mutant survivant
 
 # Frontend tests
 cd frontend && pnpm test

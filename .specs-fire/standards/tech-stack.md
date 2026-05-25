@@ -146,6 +146,8 @@ Plateforme FX Pricing full-stack : backend Python/FastAPI pour les calculs finan
 
 - `pytest` (8.0+) + `pytest-asyncio` — tests backend
 - `pytest-cov` — coverage
+- `mutmut` (2.0+) — mutation testing sur `app/domain/`
+- `aiosqlite` (0.20+) — SQLite async pour tests d'intégration (sans PostgreSQL)
 - `httpx` — test client FastAPI
 - `vitest` (1.6+) — tests frontend
 - `playwright` (1.44+) — tests E2E
