@@ -51,9 +51,11 @@ async def ws_spot_price(websocket: WebSocket, pair: str) -> None:
         return
 
     redis_client = aioredis.from_url(settings.effective_redis_url, decode_responses=True)
+    # TTL matches the push interval so each tick fetches a fresh price.
+    # The REST cache (30s) stays independent — this only affects the WS loop.
     cache = PriceCache(
         redis=redis_client,
-        ttl=settings.market_data_cache_ttl_seconds,
+        ttl=settings.ws_price_interval_seconds,
         stale_threshold=settings.market_data_stale_threshold_seconds,
     )
     provider = YahooFinanceProvider(timeout=settings.market_data_cache_ttl_seconds)
