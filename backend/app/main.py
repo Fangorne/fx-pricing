@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.routers.prices import router as prices_router
 from app.api.routers.reference import router as reference_router
 from app.config import get_settings
 
@@ -50,6 +51,14 @@ _TAGS = [
         ),
     },
     {
+        "name": "Prices",
+        "description": (
+            "Live FX spot prices via Yahoo Finance with Redis caching. "
+            "Returns bid, ask, mid, and staleness metadata. "
+            "Stale prices are served transparently when the provider is unavailable."
+        ),
+    },
+    {
         "name": "Health",
         "description": "Service health check.",
     },
@@ -75,6 +84,7 @@ app.add_middleware(
 )
 
 app.include_router(reference_router)
+app.include_router(prices_router)
 
 
 @app.get("/health", tags=["Health"], summary="Health check")
