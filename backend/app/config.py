@@ -39,6 +39,10 @@ class Settings(BaseSettings):
             return self.redis_url
         return f"redis://{self.redis_host}:{self.redis_port}/0"
 
+    # Market data cache
+    market_data_cache_ttl_seconds: int = 30
+    market_data_stale_threshold_seconds: int = 60
+
     # App
     secret_key: str = "changeme"
     debug: bool = False
