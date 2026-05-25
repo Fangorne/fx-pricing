@@ -13,7 +13,7 @@ workspace:
 intents:
   - id: core-fx-domain
     title: Core FX Domain Layer
-    status: in_progress
+    status: completed
     work_items:
       - id: project-scaffold
         title: Project Scaffold
@@ -70,7 +70,7 @@ intents:
         completed_at: 2026-05-23T10:37:06.457Z
   - id: docker-ci-setup
     title: Dockerisation & CI GitHub
-    status: in_progress
+    status: completed
     work_items:
       - id: dockerfile-backend
         title: Dockerfile Backend Multi-Stage
@@ -101,7 +101,7 @@ intents:
         completed_at: 2026-05-23T12:10:00.000Z
   - id: frontend-fx-reference
     title: Frontend FX Conventions & Calendars
-    status: in_progress
+    status: completed
     work_items:
       - id: frontend-scaffold
         title: Frontend Scaffold (Vite + React + TypeScript + Tailwind)
@@ -151,9 +151,57 @@ intents:
           - frontend-calendar-page
         run_id: run-fx-pricing-014
         completed_at: 2026-05-23T11:58:29.215Z
+  - id: database-swagger
+    title: Base de données & Swagger UI
+    status: in_progress
+    work_items:
+      - id: db-sqlalchemy-models
+        title: SQLAlchemy Models (conventions, calendriers, holidays)
+        complexity: medium
+        mode: confirm
+        status: completed
+        depends_on: []
+        run_id: run-fx-pricing-015
+        completed_at: 2026-05-25T14:00:00.000Z
+      - id: db-alembic-migrations
+        title: Migrations Alembic initiales
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on:
+          - db-sqlalchemy-models
+      - id: db-repository-layer
+        title: Repository layer async (CRUD)
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on:
+          - db-alembic-migrations
+      - id: db-wire-api
+        title: Wiring API → DB (remplacer données statiques)
+        complexity: medium
+        mode: confirm
+        status: pending
+        depends_on:
+          - db-repository-layer
+      - id: swagger-ui-config
+        title: Configuration Swagger UI
+        complexity: low
+        mode: autopilot
+        status: pending
+        depends_on:
+          - db-wire-api
 runs:
   active: []
   completed:
+    - id: run-fx-pricing-015
+      scope: single
+      work_items:
+        - id: db-sqlalchemy-models
+          intent: database-swagger
+          mode: confirm
+      started: 2026-05-25T11:08:27.543Z
+      completed: 2026-05-25T14:00:00.000Z
     - id: run-fx-pricing-001
       scope: single
       work_items:
