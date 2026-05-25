@@ -5,6 +5,7 @@ import { CalendarPage } from '@/features/calendars/CalendarPage'
 import { SpotCalculatorPage } from '@/features/dates/SpotCalculatorPage'
 import { HomePage } from '@/features/home/HomePage'
 import { DesignSystemPage } from '@/pages/DesignSystemPage'
+import { LivePricesPage } from '@/features/prices/LivePricesPage'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/conventions" element={<ConventionsPage />} />
           <Route path="/calendars" element={<CalendarPage />} />
           <Route path="/dates" element={<SpotCalculatorPage />} />
+          <Route path="/prices" element={<LivePricesPage />} />
           <Route path="/design-system" element={<DesignSystemPage />} />
         </Route>
       </Routes>

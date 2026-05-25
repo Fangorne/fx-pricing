@@ -5,6 +5,7 @@ import {
   ArrowLeftRight,
   CalendarDays,
   Calculator,
+  TrendingUp,
   Palette,
   type LucideIcon,
 } from 'lucide-react'
@@ -22,6 +23,7 @@ const NAV_ITEMS: NavItem[] = [
   { to: '/conventions',   label: 'Conventions',     icon: ArrowLeftRight },
   { to: '/calendars',     label: 'Calendars',       icon: CalendarDays },
   { to: '/dates',         label: 'Date Calculator', icon: Calculator },
+  { to: '/prices',        label: 'Live Prices',     icon: TrendingUp },
   { to: '/design-system', label: 'Design System',   icon: Palette, dev: true },
 ]
 
