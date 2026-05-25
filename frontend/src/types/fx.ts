@@ -56,3 +56,15 @@ export interface BusinessDayCheckResult {
   is_business_day: boolean
   reason?: string
 }
+
+export interface SpotPrice {
+  pair: string
+  bid: number
+  ask: number
+  mid: number
+  timestamp: string
+  is_stale: boolean
+  age_seconds: number
+}
+
+export type StreamStatus = 'connecting' | 'live' | 'error' | 'closed'
