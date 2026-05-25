@@ -26,6 +26,7 @@
     --accent-subtle: #00232a;
     --accent-hover:  #00cce0;
     --accent-dim:    #007f8f;
+    --accent-ring:   rgba(0, 180, 200, 0.4);
 
     /* Semantic */
     --positive:        #00d47a;
@@ -87,7 +88,7 @@
            font-mono text-sm text-text-primary placeholder-text-muted
            transition-colors duration-[150ms]
            hover:border-border-strong
-           focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/40;
+           focus:border-accent focus:outline-none focus:ring-1 focus:ring-[var(--accent-ring)];
   }
 
   /* ─── Table system ─────────────────────────────────────────────── */
@@ -122,4 +123,15 @@
   .section-title {
     @apply text-label uppercase tracking-wider text-text-muted;
   }
+
+  /* ─── Selected table row ───────────────────────────────────────── */
+  .selected-row {
+    border-left: 2px solid var(--accent);
+    background: var(--accent-subtle);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: none; }
 }

@@ -33,8 +33,8 @@ const TOKEN_GROUPS: { label: string; tokens: TokenName[] }[] = [
   { label: 'Backgrounds', tokens: ['bg-base', 'bg-surface', 'bg-elevated', 'bg-overlay'] },
   { label: 'Borders', tokens: ['border-subtle', 'border-default', 'border-strong'] },
   { label: 'Text', tokens: ['text-primary', 'text-secondary', 'text-muted'] },
-  { label: 'Accent', tokens: ['accent', 'accent-subtle', 'accent-hover'] },
-  { label: 'Semantic', tokens: ['success', 'success-subtle', 'warning', 'warning-subtle', 'danger', 'danger-subtle'] },
+  { label: 'Accent', tokens: ['accent', 'accent-subtle', 'accent-hover', 'accent-dim'] },
+  { label: 'Semantic', tokens: ['positive', 'positive-subtle', 'negative', 'negative-subtle', 'warning', 'warning-subtle'] },
 ]
 
 function TokenRow({ name }: { name: TokenName }) {
@@ -120,10 +120,10 @@ const swatchNames: TokenName[] = [
   'bg-base', 'bg-surface', 'bg-elevated', 'bg-overlay',
   'border-subtle', 'border-default', 'border-strong',
   'text-primary', 'text-secondary', 'text-muted',
-  'accent', 'accent-subtle', 'accent-hover',
-  'success', 'success-subtle',
+  'accent', 'accent-subtle', 'accent-hover', 'accent-dim',
+  'positive', 'positive-subtle',
+  'negative', 'negative-subtle',
   'warning', 'warning-subtle',
-  'danger', 'danger-subtle',
 ]
 
 function ColorPalette() {

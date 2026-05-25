@@ -6,6 +6,7 @@ import { Alert } from '@/components/ui/Alert'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { FieldLabel } from '@/components/ui/FieldLabel'
 import { formatIso } from '@/utils/dates'
+import { PageHeader } from '@/components/layout/PageHeader'
 
 const PAIRS = [
   'EUR/USD', 'USD/JPY', 'GBP/USD', 'USD/CHF', 'USD/CAD',
@@ -91,12 +92,7 @@ export function SpotCalculatorPage() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-4 px-6 py-6">
-      {/* Page header */}
-      <div className="border-b border-border-subtle pb-2">
-        <span className="text-label uppercase tracking-wider text-text-muted">
-          Spot / Value Date Calculator
-        </span>
-      </div>
+      <PageHeader title="Spot / Value Date Calculator" compact />
 
       {/* Command input */}
       <div className="rounded-lg border border-border-default bg-bg-surface">

@@ -1,12 +1,15 @@
 import { useState, useMemo } from 'react'
 import { useConventions } from '@/hooks/useConventions'
 import { ConventionsList } from './ConventionsList'
+import { ConventionDetail } from './ConventionDetail'
 import { Alert } from '@/components/ui/Alert'
 import { Skeleton } from '@/components/ui/Skeleton'
 import { Badge } from '@/components/ui/Badge'
+import { PageHeader } from '@/components/layout/PageHeader'
 
 export function ConventionsPage() {
   const [search, setSearch] = useState('')
+  const [selectedPair, setSelectedPair] = useState<string | null>(null)
   const { conventions, loading, error } = useConventions()
 
   const filtered = useMemo(() => {
@@ -17,13 +20,11 @@ export function ConventionsPage() {
 
   return (
     <div className="space-y-4 px-6 py-6">
-      {/* Page header */}
-      <div className="flex items-center justify-between border-b border-border-subtle pb-2">
-        <span className="text-label uppercase tracking-wider text-text-muted">FX Conventions</span>
-        {conventions.length > 0 && (
-          <Badge variant="neutral">{filtered.length} pairs</Badge>
-        )}
-      </div>
+      <PageHeader
+        title="FX Conventions"
+        compact
+        badge={conventions.length > 0 ? <Badge variant="neutral">{filtered.length} pairs</Badge> : undefined}
+      />
 
       {/* Search */}
       <div className="flex items-center gap-3">
@@ -40,16 +41,39 @@ export function ConventionsPage() {
         {search && (
           <button
             onClick={() => setSearch('')}
-            className="text-xs text-text-muted hover:text-text-secondary transition-colors"
+            className="text-xs text-text-muted hover:text-text-secondary transition-colors duration-[100ms]"
           >
             Clear
+          </button>
+        )}
+        {selectedPair && (
+          <button
+            onClick={() => setSelectedPair(null)}
+            className="ml-auto text-xs text-text-muted hover:text-text-secondary transition-colors duration-[100ms]"
+          >
+            Close detail ×
           </button>
         )}
       </div>
 
       {error && <Alert variant="error">API unavailable — {error}</Alert>}
 
-      {loading ? <Skeleton lines={10} /> : <ConventionsList conventions={filtered} />}
+      {loading ? (
+        <Skeleton lines={10} />
+      ) : (
+        <div className={`grid gap-4 ${selectedPair ? 'lg:grid-cols-[1fr_320px]' : ''}`}>
+          <ConventionsList
+            conventions={filtered}
+            selectedPair={selectedPair}
+            onSelectPair={setSelectedPair}
+          />
+          {selectedPair && (
+            <div className="self-start">
+              <ConventionDetail pair={selectedPair} />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }

@@ -140,13 +140,22 @@ export function HomePage() {
             { pair: 'GBP/USD', spot: 'T+2', basis: 'Act/365' },
             { pair: 'USD/CHF', spot: 'T+2', basis: 'Act/360' },
           ].map((row) => (
-            <div key={row.pair} className="bg-bg-surface px-4 py-3">
+            <Link
+              key={row.pair}
+              to="/conventions"
+              className="bg-bg-surface px-4 py-3 transition-colors duration-[100ms] hover:bg-bg-elevated"
+            >
               <p className="font-mono text-sm font-semibold text-accent">{row.pair}</p>
               <p className="mt-1 text-label text-text-muted">
                 {row.spot} &middot; {row.basis}
               </p>
-            </div>
+            </Link>
           ))}
+        </div>
+        <div className="border-t border-border-subtle px-4 py-2">
+          <span className="text-label uppercase tracking-wider text-text-muted">
+            Press <kbd className="rounded border border-border-default bg-bg-elevated px-1 font-mono text-[10px] text-text-secondary">?</kbd> for keyboard shortcuts
+          </span>
         </div>
       </div>
     </div>

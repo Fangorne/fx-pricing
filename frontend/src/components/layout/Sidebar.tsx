@@ -1,9 +1,11 @@
 import { NavLink } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import {
   LayoutDashboard,
   ArrowLeftRight,
   CalendarDays,
   Calculator,
+  Palette,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -12,16 +14,28 @@ interface NavItem {
   label: string
   icon: LucideIcon
   end?: boolean
+  dev?: boolean
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { to: '/',            label: 'Overview',        icon: LayoutDashboard, end: true },
-  { to: '/conventions', label: 'Conventions',     icon: ArrowLeftRight },
-  { to: '/calendars',   label: 'Calendars',       icon: CalendarDays },
-  { to: '/dates',       label: 'Date Calculator', icon: Calculator },
+  { to: '/',              label: 'Overview',        icon: LayoutDashboard, end: true },
+  { to: '/conventions',   label: 'Conventions',     icon: ArrowLeftRight },
+  { to: '/calendars',     label: 'Calendars',       icon: CalendarDays },
+  { to: '/dates',         label: 'Date Calculator', icon: Calculator },
+  { to: '/design-system', label: 'Design System',   icon: Palette, dev: true },
 ]
 
+function useUtcClock() {
+  const [time, setTime] = useState(() => new Date().toUTCString().slice(17, 22))
+  useEffect(() => {
+    const id = setInterval(() => setTime(new Date().toUTCString().slice(17, 22)), 1000)
+    return () => clearInterval(id)
+  }, [])
+  return time
+}
+
 export function Sidebar() {
+  const utcTime = useUtcClock()
   return (
     <aside className="flex h-screen w-[224px] shrink-0 flex-col border-r border-border-subtle bg-bg-surface">
       {/* Logo bar */}
@@ -66,6 +80,11 @@ export function Sidebar() {
                       <span className={`font-medium ${isActive ? '' : 'group-hover:text-text-primary'}`}>
                         {item.label}
                       </span>
+                      {item.dev && !isActive && (
+                        <span className="ml-auto rounded px-1 py-px font-mono text-[9px] font-bold uppercase tracking-wider text-text-muted border border-border-default">
+                          DEV
+                        </span>
+                      )}
                       {isActive && (
                         <span className="ml-auto h-1 w-1 rounded-full bg-accent" />
                       )}
@@ -84,9 +103,12 @@ export function Sidebar() {
           <span className="h-1.5 w-1.5 rounded-full bg-positive animate-pulse" />
           <span className="text-label uppercase tracking-wider text-text-muted">G10 Coverage</span>
         </div>
-        <div className="mt-1 px-2">
+        <div className="mt-1 px-2 flex items-center justify-between">
           <span className="text-label uppercase tracking-wider text-text-muted">
-            45 pairs · 10 calendars
+            45 pairs · 10 cal
+          </span>
+          <span className="font-mono text-[10px] text-text-muted tabular-nums">
+            {utcTime} UTC
           </span>
         </div>
       </div>

@@ -61,7 +61,7 @@ export function useConventionDetail(pair: string | undefined): UseConventionDeta
       .catch((err: unknown) => {
         if (!cancelled) {
           const msg = err instanceof Error ? err.message : 'Not found'
-          setError(msg.includes('404') ? 'Convention non trouvée' : msg)
+          setError(msg.includes('404') ? 'Convention not found' : msg)
         }
       })
       .finally(() => {

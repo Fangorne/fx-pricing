@@ -4,6 +4,7 @@ import { HolidayList } from './HolidayList'
 import { BusinessDayChecker } from './BusinessDayChecker'
 import { Alert } from '@/components/ui/Alert'
 import { Badge } from '@/components/ui/Badge'
+import { PageHeader } from '@/components/layout/PageHeader'
 
 const CURRENCIES = ['USD', 'EUR', 'GBP', 'JPY', 'CHF', 'CAD', 'AUD', 'NZD', 'SEK', 'NOK']
 
@@ -17,13 +18,11 @@ export function CalendarPage() {
 
   return (
     <div className="space-y-4 px-6 py-6">
-      {/* Page header */}
-      <div className="flex items-center justify-between border-b border-border-subtle pb-2">
-        <span className="text-label uppercase tracking-wider text-text-muted">Market Calendars</span>
-        {!loading && holidays.length > 0 && (
-          <Badge variant="neutral">{holidays.length} holidays</Badge>
-        )}
-      </div>
+      <PageHeader
+        title="Market Calendars"
+        compact
+        badge={!loading && holidays.length > 0 ? <Badge variant="neutral">{holidays.length} holidays</Badge> : undefined}
+      />
 
       {/* Controls */}
       <div className="flex flex-wrap items-end gap-3">
