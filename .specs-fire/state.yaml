@@ -167,9 +167,11 @@ intents:
         title: Migrations Alembic initiales
         complexity: medium
         mode: confirm
-        status: pending
+        status: completed
         depends_on:
           - db-sqlalchemy-models
+        run_id: run-fx-pricing-016
+        completed_at: 2026-05-25T14:30:00.000Z
       - id: db-repository-layer
         title: Repository layer async (CRUD)
         complexity: medium
